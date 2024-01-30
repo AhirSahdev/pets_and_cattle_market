@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Response',
           ),
           NavigationDestination(
-            icon: Icon(Icons.add),
+            icon: Icon(Icons.add_circle_outline_sharp),
             label: 'Sell',
           ),
           NavigationDestination(

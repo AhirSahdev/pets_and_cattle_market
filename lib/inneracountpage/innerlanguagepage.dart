@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pets_and_cattle_market/loginpage.dart';
 
 class LanguageSelectionPage extends StatefulWidget {
   const LanguageSelectionPage({Key? key}) : super(key: key);
@@ -67,18 +66,8 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
                   borderRadius: BorderRadius.circular(15),
                 ),
               ),
-              onPressed: () {
-                ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),
-                );
-
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            LoginPage(phoneNumber: '123456789')));
-              },
-              child: const Text('Continue'),
+              onPressed: () {},
+              child: const Text('Save'),
             ),
           ],
         ),

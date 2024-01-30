@@ -9,6 +9,7 @@ class Response extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Response'),
         automaticallyImplyLeading: false,
+        backgroundColor: Colors.blue,
       ),
       body: ListView(children: [
         Card(

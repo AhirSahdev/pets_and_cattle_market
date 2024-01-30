@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pets_and_cattle_market/detailcard.dart';
+import 'package:pets_and_cattle_market/underdetailcard.dart';
 
 class Cowbreed extends StatelessWidget {
   const Cowbreed({Key? key}) : super(key: key);
@@ -46,7 +48,7 @@ class Cowbreed extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Cow_Breeds"),
+        title: const Text("Cow Breeds"),
       ),
       body: ListView.separated(
         itemBuilder: (context, index) {
@@ -59,7 +61,18 @@ class Cowbreed extends StatelessWidget {
               backgroundImage: AssetImage(breedImagePath!),
             ),
             title: Text(breed),
-            trailing: const Icon(Icons.navigate_next),
+            trailing: IconButton(
+              icon: const Icon(
+                Icons.navigate_next,
+              ),
+              onPressed: () {
+                // Handle the button press (e.g., navigate to a details screen)
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Detail_Card()),
+                );
+              },
+            ),
           );
         },
         itemCount: breeds.length,

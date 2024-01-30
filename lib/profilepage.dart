@@ -19,6 +19,7 @@ class _profilepage extends State<profilepage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Enter Your Name'),
+        backgroundColor: Colors.blue,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

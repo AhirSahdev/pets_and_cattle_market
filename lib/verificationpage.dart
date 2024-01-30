@@ -19,6 +19,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Verify Code'),
+        backgroundColor: Colors.blue,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

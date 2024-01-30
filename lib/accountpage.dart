@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pets_and_cattle_market/inneracountpage/favorite.dart';
+import 'package:pets_and_cattle_market/inneracountpage/innerlanguagepage.dart';
+import 'package:pets_and_cattle_market/inneracountpage/innerlocationpage.dart';
+import 'package:pets_and_cattle_market/inneracountpage/innerprofilepage.dart';
+import 'package:pets_and_cattle_market/inneracountpage/myadds.dart';
 
 class Accountpage extends StatefulWidget {
   const Accountpage({super.key});
@@ -39,35 +44,61 @@ class _AccountpageState extends State<Accountpage> {
             child: ListTile(
               leading: const Icon(Icons.account_circle),
               title: const Text('My Profile'),
-              onTap: () => {}, // Replace with navigation logic
+              onTap: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const profileEdit()),
+                )
+              }, // Replace with navigation logic
             ),
           ),
           Card(
             child: ListTile(
               leading: const Icon(Icons.my_library_add),
               title: const Text('My Ads'),
-              onTap: () => {}, // Replace with navigation logic
+              onTap: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyAds()),
+                )
+              }, // Replace with navigation logic
             ),
           ),
           Card(
             child: ListTile(
               leading: const Icon(Icons.favorite),
               title: const Text('Favorite'),
-              onTap: () => {}, // Replace with navigation logic
+              onTap: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Favorite()),
+                )
+              }, // Replace with navigation logic
             ),
           ),
           Card(
             child: ListTile(
               leading: const Icon(Icons.location_on),
               title: const Text('Location'),
-              onTap: () => {}, // Replace with navigation logic
+              onTap: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LocationPage()),
+                )
+              }, // Replace with navigation logic
             ),
           ),
           Card(
             child: ListTile(
               title: const Text('Change language'),
               leading: const Icon(Icons.language),
-              onTap: () => {}, // Replace with language change logic
+              onTap: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const LanguageSelectionPage()),
+                )
+              }, // Replace with language change logic
             ),
           ),
           Card(
