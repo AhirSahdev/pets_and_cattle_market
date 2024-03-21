@@ -1,13 +1,16 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:pets_and_cattle_market/accountpage.dart';
 import 'package:pets_and_cattle_market/homepage.dart';
 import 'package:pets_and_cattle_market/notificationpage.dart';
 import 'package:pets_and_cattle_market/responsepage.dart';
 import 'package:pets_and_cattle_market/sellercategories.dart';
+import 'package:pets_and_cattle_market/profilepage.dart';
+import 'package:pets_and_cattle_market/sellercowdetailpage.dart';
 
-//import 'locationpage.dart';
+
+
+
+
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -20,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static final List<Widget> _pages = <Widget>[
     Container(key: const PageStorageKey('page1'), child: HomeScreenn()),
     Container(key: const PageStorageKey('page2'), child: Response()),
-    Container(key: const PageStorageKey('page3'), child: Buyer_Categories()),
+    Container(key: const PageStorageKey('page3'), child: selling_Detail()),
     Container(key: const PageStorageKey('page4'), child: NotificationPage()),
     Container(key: const PageStorageKey('page5'), child: Accountpage()),
   ];
@@ -55,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           NavigationDestination(
             icon: Icon(Icons.notifications),
-            label: 'Notifications',
+            label: 'Notification',
           ),
           NavigationDestination(
             icon: Icon(Icons.person),

@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 
 class Response extends StatelessWidget {
-  const Response({Key? key}) : super(key: key);
 
+  var  menuItems = [
+    { 'name': 'Patel Rohit',
+      'number': 'Mobile No:-9725337330'},
+    { 'name': 'Tirthraj Vaghela', 'number': 'Mobile No:-9510440420'},
+    { 'name': 'Laxman Rabari', 'number': 'Mobile No:-9794037330'},
+    { 'name': 'Mohan Ahir', 'number': 'Mobile No:-9639284670'},
+    { 'name': 'Sahdev Goyal', 'number': 'Mobile No:-9593092838'},
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,78 +18,24 @@ class Response extends StatelessWidget {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.blue,
       ),
-      body: ListView(children: [
-        Card(
+      body: ListView(
+          children: menuItems.map((value) =>
+         Card(
           child: ListTile(
             leading: const Icon(
               Icons.account_circle,
               size: 40,
             ),
-            title: const Text('Name: Patel Rohit'),
-            subtitle: const Text('Mobile No:-9510420330'),
+            title:  Text(value['name'].toString()),
+            subtitle:  Text( value['number'].toString(),),
             trailing: ElevatedButton(
               onPressed: () {},
               child: const Text('Call'),
             ),
           ),
-        ),
-        Card(
-          child: ListTile(
-            leading: const Icon(
-              Icons.account_circle,
-              size: 40,
-            ),
-            title: const Text('Name: Tirthraj Vaghela'),
-            subtitle: const Text('Mobile No:-9510440394'),
-            trailing: ElevatedButton(
-              onPressed: () {},
-              child: const Text('Call'),
-            ),
-          ),
-        ),
-        Card(
-          child: ListTile(
-            leading: const Icon(
-              Icons.account_circle,
-              size: 40,
-            ),
-            title: const Text('Name: Laxman Rabari'),
-            subtitle: const Text('Mobile No:-9510445560'),
-            trailing: ElevatedButton(
-              onPressed: () {},
-              child: const Text('Call'),
-            ),
-          ),
-        ),
-        Card(
-          child: ListTile(
-            leading: const Icon(
-              Icons.account_circle,
-              size: 40,
-            ),
-            title: const Text('Name: Mohan Ahir'),
-            subtitle: const Text('Mobile No:-9510420376'),
-            trailing: ElevatedButton(
-              onPressed: () {},
-              child: const Text('Call'),
-            ),
-          ),
-        ),
-        Card(
-          child: ListTile(
-            leading: const Icon(
-              Icons.account_circle,
-              size: 40,
-            ),
-            title: const Text('Name: Sahdev Goyal'),
-            subtitle: const Text('Mobile No:-9510420334'),
-            trailing: ElevatedButton(
-              onPressed: () {},
-              child: const Text('Call'),
-            ),
-          ),
-        ),
-      ]),
+        )
+    ).toList()
+      ),
     );
   }
 }

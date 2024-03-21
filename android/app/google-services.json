@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "887300802139",
+    "firebase_url": "https://petsandcattleselling-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "petsandcattleselling",
+    "storage_bucket": "petsandcattleselling.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887300802139:android:6cacb91b6810382576a17e",
+        "android_client_info": {
+          "package_name": "com.example.pets_and_cattle_market",
+          "certificate_fingerprints" :[
+            "5c:9c:5b:b2:c0:80:8c:9d:fc:dd:2b:37:57:39:81:6d:82:0d:a8:04",
+            "89:bb:d5:18:ce:3c:7d:ac:7c:76:8b:74:22:7b:d7:c9:07:3d:30:90:45:0a:a2:f6:00:69:47:eb:82:3f:7d:4c"
+          ]
+          
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAx5fydxe3O8HSH5ECdENQr2JlbQ-GTIMU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

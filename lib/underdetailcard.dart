@@ -117,18 +117,16 @@ class UnderCard extends StatelessWidget {
                       child: Row(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 5),
-                            child: Icon(
-                              Icons.favorite_border,
-                              size: 50,
-                              color: Colors.red,
-                            ),
+                            padding: const EdgeInsets.only(bottom: 15),
+                            child: IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border,size: 50,color: Colors.red,))
                           ),
+                          SizedBox(width: 10,),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
                                 children: [
+                                  SizedBox(height: 40,),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 5),
                                     child: Text(

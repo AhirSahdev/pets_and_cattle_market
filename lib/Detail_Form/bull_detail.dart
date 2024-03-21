@@ -1,6 +1,41 @@
-// ignore_for_file: avoid_unnecessary_containers
-
+//ignore_for_file: avoid_unnecessary_containers
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import "package:http/http.dart" as http;
+
+
+void sendDataToNodeJS() async {
+  // Define the data to send
+  Map<String, dynamic> data = {
+    'imageData':'data', /* Convert your image data to a format suitable for sending */
+    'selectedStage': '1',
+    'age': '10',/* Get the age value from your text field */
+    'price': '300000',/* Get the price value from your text field */
+    'isPriceChangePossible': true,
+    'isVaccinationGiven': "yes",
+    'note': 'note', /* Get the note value from your text field */
+  };
+
+  // Send a POST request to the Node.js server
+  final response = await http.post(
+    Uri.parse('http://localhost:3000/api/getAnimal'),
+    headers: <String, String>{
+      'Content-Type': 'application/json',
+    },
+    body: jsonEncode(data),
+  );
+
+  // Check the response status
+  if (response.statusCode == 200) {
+    // Data sent successfully
+    print('Data sent successfully');
+  } else {
+    // Failed to send data
+    print('Failed to send data');
+  }
+}
 
 class Bull_Detail extends StatefulWidget {
   const Bull_Detail({Key? key}) : super(key: key);
@@ -18,11 +53,48 @@ class _CowDetailsPageState extends State<Bull_Detail> {
 
   get myController => null;
 
+  final ImagePicker imagePicker = ImagePicker();
+  List<XFile> imageFileList = [];
+
+  void selectImages() async {
+    List<XFile>? selectedImages = await imagePicker.pickMultiImage(
+      maxWidth: 800, // Adjust the maxWidth and maxHeight as needed
+      maxHeight: 600,
+      imageQuality: 80, // Adjust the image quality as needed
+    );
+
+    if (selectedImages != null) {
+      // Ensure the total number of images doesn't exceed 4
+      if (imageFileList.length + selectedImages.length > 3) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Exceeded Maximum Images"),
+              content: Text("You can select a maximum of 3 images."),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("OK"),
+                ),
+              ],
+            );
+          },
+        );
+      } else {
+        // Add selected images to the list
+        imageFileList.addAll(selectedImages);
+        setState(() {});
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: const Text('Bull Details'),
         backgroundColor: Colors.blue,
       ),
@@ -41,29 +113,46 @@ class _CowDetailsPageState extends State<Bull_Detail> {
               ),
             ),
             Center(
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(width: 1),
-                  borderRadius: const BorderRadius.all(Radius.circular(5)),
-                ),
-                //color: Colors.lightBlueAccent,
-                height: 150,
-                width: 300,
-                child: Padding(
-                  padding: EdgeInsets.only(top: 25),
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Icon(Icons.photo_camera, size: 60),
-                        Text(
-                          'Take a Photo',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700, fontSize: 20),
+              child: Container(width: 330,height: 200,decoration: BoxDecoration(
+                border: Border.all(width: 1),
+                borderRadius: const BorderRadius.all(Radius.circular(5)),
+              ),
+                child: Column(
+                  children: <Widget>[
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10,left: 5,right: 5),
+                        child: GridView.builder(
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                          ),
+                          itemCount: imageFileList.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Image.file(
+                                File(imageFileList[index].path),
+                                fit: BoxFit.cover,
+                              ),
+                            );
+                          },
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 15),
+                      child: MaterialButton(
+                        color: Colors.blue,
+                        child: Text('Pick up your images',style: TextStyle(color: Colors.white),),
+                        onPressed: () {
+                          selectImages();
+                        },
+                      ),
+                    ),
+                  ],
                 ),
+
               ),
             ),
             Container(

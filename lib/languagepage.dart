@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pets_and_cattle_market/loginpage.dart';
+import 'package:pets_and_cattle_market/auth_gate.dart';
+import 'package:pets_and_cattle_market/profilepage.dart';
+import 'package:pets_and_cattle_market/sellercowdetailpage.dart';
+import 'package:pets_and_cattle_market/verificationpage.dart';
 
 class LanguageSelectionPage extends StatefulWidget {
   const LanguageSelectionPage({Key? key}) : super(key: key);
@@ -76,7 +79,7 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            LoginPage(phoneNumber: '123456789')));
+                            PhoneAuthScreen()));
               },
               child: const Text('Continue'),
             ),

@@ -43,20 +43,47 @@ class Favorite extends StatelessWidget {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 25),
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 10),
-                                child: Text(
-                                  'Price Change Possible',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 10,
-                                    backgroundColor: Colors.lightBlueAccent,
-                                    height: 2,
+                              SizedBox(width: 80,),
+                              Container(width: 110,height: 30,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 0),
+                                  child: Center(
+                                    child: Container(
+                                      width: 105,
+                                      height: 25,
+                                      decoration: BoxDecoration(
+                                          color: Color.fromARGB(255, 0, 0, 0),
+                                          borderRadius:
+                                          BorderRadius.circular(30)),
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 0, left: 5),
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                  const EdgeInsets.only(
+                                                      left: 5),
+                                                  child: Text(
+                                                    'Price Change Possible',
+                                                    style: TextStyle(
+                                                        fontSize: 8,
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(left: 80, bottom: 5),
+                                padding: EdgeInsets.only(left: 0, bottom: 5),
                                 child: Icon(
                                   Icons.favorite_sharp,
                                   size: 30,

@@ -7,129 +7,56 @@ import 'package:pets_and_cattle_market/cowbreedseller.dart';
 import 'package:pets_and_cattle_market/dogbreedseller.dart';
 import 'package:pets_and_cattle_market/goatbreedseller.dart';
 import 'package:pets_and_cattle_market/horsebreedseller.dart';
-import 'package:pets_and_cattle_market/sellercowdetailpage.dart';
+
 
 class Buyer_Categories extends StatelessWidget {
-  const Buyer_Categories({Key? key}) : super(key: key);
+  Buyer_Categories({Key? key}) : super(key: key);
+
+  final List<Map<String, dynamic>> menuItems = [
+    { 'title': 'Cow', 'page': Cowbreed_Seller()},
+    {'title': 'Buffalo', 'page': Buffalobreed_Seller()},
+    {'title': 'Dog', 'page': Dogbreed_Seller()},
+    {'title': 'Bull', 'page': Bull_breed()},
+    {'title': 'Cat', 'page': CatBreed_Seller()},
+    {'title': 'Goat', 'page': Goatbreed_Seller()},
+    {'title': 'Horse', 'page': Horsebreed_Seller()},
+    {'title': 'Sheep', 'page': GoatDetailsPage()},
+    {'title': 'Camel',  'page': GoatDetailsPage()},
+  ];
 
   @override
   Widget build(BuildContext context) {
-    var breeds = [
-      'Cow',
-      'Buffalo',
-      'Dog',
-      'Bull',
-      'Cat',
-      'Goat',
-      'Horse',
-      'Sheep',
-      'Camel'
-    ];
-    var breedImages = {
-      'Cow': 'assets/images/cow.jpeg',
-      'Buffalo': 'assets/images/jafarabadi.png',
-      'Dog': 'assets/images/bendog.png',
-      'Bull': 'assets/images/Red-Sindhi-Bull.png',
-      'Cat': 'assets/images/bengal.png',
-      'Goat': 'assets/images/Ganjam.png',
-      'Horse': 'assets/images/Sindhi-removebg-preview.png',
-      'Sheep': 'assets/images/sheep-removebg-preview.png',
-      'Camel': 'assets/images/camel.png'
-    };
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Select The Type'),
+        title: const Text('Categories'),
         backgroundColor: Colors.blue,
       ),
-      body: ListView.separated(
+      body: ListView.builder(
+        itemCount: menuItems.length,
         itemBuilder: (context, index) {
-          var breed = breeds[index];
-          var breedImagePath = breedImages[breed];
+          return GestureDetector(
+            onTap: () {
+              if (menuItems[index]['page'] != null) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => menuItems[index]['page']),
+                );
+              } else {
+                // Handle other menu items' actions here
+              }
+            },
+            child: Card(
+              child: ListTile(
 
-          return ListTile(
-              leading: CircleAvatar(
-                backgroundColor: Colors.white,
-                backgroundImage: AssetImage(breedImagePath!),
+                trailing: Icon(Icons.arrow_forward_ios_outlined,color: Colors.black,),
+                title: Text(menuItems[index]['title'],style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500),),
               ),
-              title: Text(breed),
-              trailing: GestureDetector(
-                  child: const Icon(Icons.navigate_next),
-                  onTap: () {
-                    switch (breed) {
-                      case 'Cow':
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Cowbreed_Seller()),
-                        );
-                        break;
-                      case 'Buffalo':
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const Buffalobreed_Seller()),
-                        );
-                        break;
-                      case 'Dog':
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Dogbreed_Seller()),
-                        );
-                        break;
-                      case 'Bull':
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Bull_breed()),
-                        );
-                        break;
-                      case 'Cat':
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const CatBreed_Seller()),
-                        );
-                        break;
-                      case 'Goat':
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Goatbreed_Seller()),
-                        );
-                        break;
-                      case 'Horse':
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Horsebreed_Seller()),
-                        );
-                        break;
-                      case 'Sheep':
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const GoatDetailsPage()),
-                        );
-                        break;
-                      case 'Camel':
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const GoatDetailsPage()),
-                        );
-                        break;
-                    }
-                  }));
-        },
-        itemCount: breeds.length,
-        separatorBuilder: (context, index) {
-          return const Divider(height: 50, thickness: 2);
+            ),
+          );
         },
       ),
+
     );
   }
 }

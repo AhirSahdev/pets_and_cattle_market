@@ -1,44 +1,66 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:pets_and_cattle_market/home.dart';
+import 'package:pets_and_cattle_market/homepage.dart';
 
-class LocationPage extends StatelessWidget {
-  const LocationPage({super.key});
+class LocationScreen extends StatefulWidget {
+  @override
+  _LocationScreenState createState() => _LocationScreenState();
+
+}
+
+class _LocationScreenState extends State<LocationScreen> {
+  Position? _currentPosition;
+
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentLocation();
+  }
+
+  // Get the current location of the device
+  void _getCurrentLocation() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+
+    setState(() {
+      _currentPosition = position;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Find Location'),
+        title: Text('Location'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.location_on,
-              size: 100,
-              color: Theme.of(context).primaryColor,
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Your location will appear here',
-              style: TextStyle(fontSize: 20),
-            ),
-            const SizedBox(height: 40),
-            // Placeholder for future location display
-            // You can add a Text widget or other visual elements to display location data
-            // when you integrate APIs and backend support
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 20),
-          child: ElevatedButton(
-            onPressed: () {},
-            child: const Text('Save'),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: _currentPosition != null
+                ? Text(
+                'Latitude: ${_currentPosition!.latitude}, Longitude: ${_currentPosition!.longitude}')
+                : CircularProgressIndicator(),
+
           ),
-        ),
+          SizedBox(height: 150,),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomeScreen(),
+                ),
+              );
+            },
+            child: const Text('Save Location'),
+          )
+        ],
       ),
+
     );
   }
 }

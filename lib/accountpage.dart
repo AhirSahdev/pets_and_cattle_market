@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pets_and_cattle_market/inneracountpage/favorite.dart';
 import 'package:pets_and_cattle_market/inneracountpage/innerlanguagepage.dart';
 import 'package:pets_and_cattle_market/inneracountpage/innerlocationpage.dart';
+import 'package:pets_and_cattle_market/inneracountpage/innerprivecy.dart';
 import 'package:pets_and_cattle_market/inneracountpage/innerprofilepage.dart';
 import 'package:pets_and_cattle_market/inneracountpage/myadds.dart';
 
@@ -20,21 +21,17 @@ class _AccountpageState extends State<Accountpage> {
         automaticallyImplyLeading: false,
         title: const Text(
           'Account',
-          style: TextStyle(fontSize: 30),
         ),
         backgroundColor: Colors.blue,
       ),
       body: ListView(
         children: [
-          const Icon(
-            Icons.account_circle,
-            size: 100,
-          ),
+          Icon(Icons.account_circle_sharp,size: 100,),
           const Padding(
             padding: EdgeInsets.only(top: 1, bottom: 10),
             child: Center(
                 child: Text(
-              'test user',
+              'Sahdev Goyal',
               style: TextStyle(fontSize: 20),
             )),
           ),
@@ -76,18 +73,18 @@ class _AccountpageState extends State<Accountpage> {
               }, // Replace with navigation logic
             ),
           ),
-          Card(
-            child: ListTile(
-              leading: const Icon(Icons.location_on),
-              title: const Text('Location'),
-              onTap: () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LocationPage()),
-                )
-              }, // Replace with navigation logic
-            ),
-          ),
+          // Card(
+          //   child: ListTile(
+          //     leading: const Icon(Icons.location_on),
+          //     title: const Text('Location'),
+          //     onTap: () => {
+          //       Navigator.push(
+          //         context,
+          //         MaterialPageRoute(builder: (context) =>  LocationScreen()),
+          //       )
+          //     }, // Replace with navigation logic
+          //   ),
+          // ),
           Card(
             child: ListTile(
               title: const Text('Change language'),
@@ -105,16 +102,22 @@ class _AccountpageState extends State<Accountpage> {
             child: ListTile(
               title: const Text('Privacy Policy'),
               leading: const Icon(Icons.info),
-              onTap: () => {}, // Replace with privacy policy display logic
+              onTap: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const privacy()),
+                )
+              }, // Replace with privacy policy display logic
             ),
           ),
-          Card(
-            child: ListTile(
-              leading: const Icon(Icons.share),
-              title: const Text('Share App'),
-              onTap: () => {}, // Replace with app sharing logic
-            ),
-          ),
+          // Card(
+          //   child: ListTile(
+          //     leading: const Icon(Icons.share),
+          //     title: const Text('Share App'),
+          //     onTap: () => {}, // Replace with app sharing logic
+          //   ),
+          // ),
           Padding(
             padding: const EdgeInsets.all(50.0),
             child: ElevatedButton(

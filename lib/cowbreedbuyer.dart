@@ -69,7 +69,7 @@ class Cowbreed extends StatelessWidget {
                 // Handle the button press (e.g., navigate to a details screen)
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const Detail_Card()),
+                  MaterialPageRoute(builder: (context) =>  Detail_Card()),
                 );
               },
             ),
