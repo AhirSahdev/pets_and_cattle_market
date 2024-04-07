@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
 class UnderCard extends StatelessWidget {
-  const UnderCard({super.key});
-
+  // const UnderCard({super.key});
+  final Map<String, dynamic> data;
+  UnderCard(this.data);
   @override
   Widget build(BuildContext context) {
+print(data);
+
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('All Detail'),
@@ -130,13 +134,15 @@ class UnderCard extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 5),
                                     child: Text(
-                                      '₹ 60,000',
+                                      '₹' + data['price'].toString(),
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 25),
                                     ),
                                   ),
-                                  Padding(
+                                  Visibility(
+                                    visible: data['is_possibale_change'] == true,
+                                    child:Padding(
                                     padding: const EdgeInsets.only(left: 30),
                                     child: Center(
                                       child: Container(
@@ -153,17 +159,17 @@ class UnderCard extends StatelessWidget {
                                                   right: 0, left: 5),
                                               child: Row(
                                                 children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 5),
-                                                    child: Text(
-                                                      'Price Change Possible',
-                                                      style: TextStyle(
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(left: 5),
+                                                      child: Text(
+                                                        'Price Change Possible',
+                                                        style: TextStyle(
                                                           fontSize: 8,
-                                                          color: Colors.white),
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
+
                                                 ],
                                               ),
                                             ),
@@ -172,6 +178,7 @@ class UnderCard extends StatelessWidget {
                                       ),
                                     ),
                                   ),
+                                  )
                                 ],
                               ),
                               Row(
@@ -185,10 +192,10 @@ class UnderCard extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 5),
                                     child: Text(
-                                      'Posted 15 Minutes Ago',
+                                      data['daysOld'].toString() + ' days old',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18),
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 15),
                                     ),
                                   ),
                                 ],
@@ -301,10 +308,35 @@ class UnderCard extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: Text(
-                              'Vaccination Has Been Given ',
+                              'Vaccination Has Been Given',
                               style: TextStyle(
                                   fontWeight: FontWeight.w500, fontSize: 17),
                             ),
+                          ),
+                          SizedBox(height: 15),
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: Text(
+                                  'Note:',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 17),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child:  Expanded(
+                                  child: Text(
+                                    data['note'].toString(),
+                                    style: TextStyle(
+                                        fontWeight:
+                                        FontWeight.w400,
+                                        fontSize: 18),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -319,90 +351,110 @@ class UnderCard extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: Text(
-                              'Cow',
+                              data['main_categorie'].toString(),
                               style: TextStyle(
-                                  fontWeight: FontWeight.w400, fontSize: 18),
+                                  fontWeight:
+                                  FontWeight.w400,
+                                  fontSize: 18),
                             ),
                           ),
                           SizedBox(height: 15),
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: Text(
-                              'Gir',
+                              data['sub_categorie'].toString(),
                               style: TextStyle(
-                                  fontWeight: FontWeight.w400, fontSize: 18),
+                                  fontWeight:
+                                  FontWeight.w400,
+                                  fontSize: 18),
                             ),
                           ),
                           SizedBox(height: 15),
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: Text(
-                              '6 Year',
+                              data['age'].toString(),
                               style: TextStyle(
-                                  fontWeight: FontWeight.w400, fontSize: 18),
+                                  fontWeight:
+                                  FontWeight.w400,
+                                  fontSize: 18),
+                            ),
+                          ),
+                          SizedBox(height: 15),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child:  Text(
+                              data['phase'].toString(),
+                              style: TextStyle(
+                                  fontWeight:
+                                  FontWeight.w400,
+                                  fontSize: 18),
                             ),
                           ),
                           SizedBox(height: 15),
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: Text(
-                              'Adult',
+                              data['fetal_status'].toString(),
                               style: TextStyle(
-                                  fontWeight: FontWeight.w400, fontSize: 18),
+                                  fontWeight:
+                                  FontWeight.w400,
+                                  fontSize: 18),
+                            ),
+                          ),
+                          SizedBox(height: 15),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child:  Text(
+                              data['milking_status'].toString(),
+                              style: TextStyle(
+                                  fontWeight:
+                                  FontWeight.w400,
+                                  fontSize: 18),
                             ),
                           ),
                           SizedBox(height: 15),
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: Text(
-                              'Pregnant',
+                              data['pregnancy_time'].toString(),
                               style: TextStyle(
-                                  fontWeight: FontWeight.w400, fontSize: 18),
+                                  fontWeight:
+                                  FontWeight.w400,
+                                  fontSize: 18),
                             ),
                           ),
                           SizedBox(height: 15),
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: Text(
-                              'Milch',
+                              data['milk_per_day'].toString(),
                               style: TextStyle(
-                                  fontWeight: FontWeight.w400, fontSize: 18),
+                                  fontWeight:
+                                  FontWeight.w400,
+                                  fontSize: 18),
                             ),
                           ),
                           SizedBox(height: 15),
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: Text(
-                              '6',
+                              data['lactation'].toString(),
                               style: TextStyle(
-                                  fontWeight: FontWeight.w400, fontSize: 18),
+                                  fontWeight:
+                                  FontWeight.w400,
+                                  fontSize: 18),
                             ),
                           ),
                           SizedBox(height: 15),
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: Text(
-                              '14',
+                              data['vaccinated'].toString(),
                               style: TextStyle(
-                                  fontWeight: FontWeight.w400, fontSize: 18),
-                            ),
-                          ),
-                          SizedBox(height: 15),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Text(
-                              '2',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w400, fontSize: 18),
-                            ),
-                          ),
-                          SizedBox(height: 15),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Text(
-                              'No',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w400, fontSize: 18),
+                                  fontWeight:
+                                  FontWeight.w400,
+                                  fontSize: 18),
                             ),
                           ),
                         ],

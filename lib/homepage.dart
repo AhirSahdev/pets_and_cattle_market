@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:pets_and_cattle_market/categories.dart';
+import 'package:pets_and_cattle_market/inneracountpage/favorite.dart';
 import 'package:pets_and_cattle_market/underdetailcard.dart';
 import "package:http/http.dart" as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,7 +25,7 @@ class _HomeScreennState extends State<HomeScreenn> {
   List<dynamic> data = [];
   var _searchbar;
   SharedPreferences? prefs;
-
+  Set<String> favorites = Set<String>();
 
   // String get createdAtString => null;
 
@@ -42,10 +43,11 @@ class _HomeScreennState extends State<HomeScreenn> {
     prefs = await SharedPreferences.getInstance();
      var userinfo = prefs?.getString('userData');
     Provider.of<UserInfoProvider>(context, listen: false).setUserDetail(userinfo);
+    favorites = prefs?.getStringList('favorites')?.toSet() ?? Set<String>();
   }
 
   void fetchData() async {
-    var url = "http://192.168.255.146:3000/api/userlisting";
+    var url = "http://192.168.122.146:3000/api/userlisting";
     var urlParser = Uri.parse(url);
     try {
       var response = await http.get(
@@ -56,6 +58,7 @@ class _HomeScreennState extends State<HomeScreenn> {
       );
       if (response.statusCode == 200) {
         List<dynamic> fetchedData = jsonDecode(response.body);
+        print(fetchedData);
         fetchedData.forEach((item){
           String createdAtString = item['createdAt'];
           DateTime createdAt = DateTime.parse(createdAtString);
@@ -142,7 +145,7 @@ class _HomeScreennState extends State<HomeScreenn> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const UnderCard()));
+                                builder: (context) =>  UnderCard(value)));
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -172,10 +175,11 @@ class _HomeScreennState extends State<HomeScreenn> {
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 25),
                                           ),
-                                          SizedBox(width: 70,),
-                                          Container(width: 120,height: 30,
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(left: 0),
+                                          SizedBox(width: 55,),
+                                          Visibility(
+                                            visible: value['is_possibale_change'] == true,
+                                            child:Padding(
+                                              padding: const EdgeInsets.only(left: 30),
                                               child: Center(
                                                 child: Container(
                                                   width: 105,
@@ -192,16 +196,16 @@ class _HomeScreennState extends State<HomeScreenn> {
                                                         child: Row(
                                                           children: [
                                                             Padding(
-                                                              padding:
-                                                              const EdgeInsets.only(
-                                                                  left: 5),
+                                                              padding: const EdgeInsets.only(left: 5),
                                                               child: Text(
                                                                 'Price Change Possible',
                                                                 style: TextStyle(
-                                                                    fontSize: 8,
-                                                                    color: Colors.white),
+                                                                  fontSize: 8,
+                                                                  color: Colors.white,
+                                                                ),
                                                               ),
                                                             ),
+
                                                           ],
                                                         ),
                                                       ),
@@ -213,7 +217,22 @@ class _HomeScreennState extends State<HomeScreenn> {
                                           ),
                                           Padding(
                                             padding: EdgeInsets.only(left: 0,bottom: 5),
-                                            child: IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border,size: 30,),color: Colors.red,),
+                                            child: IconButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) => Favorite(),
+                                                    ));
+                                                toggleFavorite(value['id']); // Assuming there's an 'id' field in your data
+                                              },
+                                              icon: Icon(
+                                                favorites.contains(value['id']) ? Icons.favorite : Icons.favorite_border,
+                                                size: 30,
+                                              ),
+                                              color: Colors.red,
+
+                                            )
                                           )
                                         ],
                                       ),
@@ -306,48 +325,48 @@ class _HomeScreennState extends State<HomeScreenn> {
                                                         fontSize: 13),
                                                   ),
                                                 ),
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets.only(
-                                                      top: 0, left: 40),
-                                                  child: Text(
+                                                SizedBox(width: 30,),
+                                                Text(
                                                     'Breed',
                                                     style: TextStyle(
                                                         fontWeight:
                                                         FontWeight.w400,
                                                         fontSize: 13),
                                                   ),
-                                                ),
                                               ],
                                             )),
                                         Container(
                                             width: 180,
                                             child: Row(
                                               children: [
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets.only(
-                                                      top: 0),
-                                                  child: Text(
-                                                    value['main_categorie'].toString(),
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                        FontWeight.bold,
-                                                        fontSize: 18),
+                                                Container(width: 80,
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                        const EdgeInsets.only(
+                                                            top: 0),
+                                                        child: Text(
+                                                          value['main_categorie'].toString(),
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                              FontWeight.bold,
+                                                              fontSize: 15),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets.only(
-                                                      top: 0, left: 78),
-                                                  child: Text(
+                                                SizedBox(width:22,),
+                                                Text(
                                                     value['sub_categorie'].toString(),
                                                     style: TextStyle(
                                                         fontWeight:
                                                         FontWeight.bold,
-                                                        fontSize: 18),
+                                                        fontSize: 15),
                                                   ),
-                                                ),
+
                                               ],
                                             )),
                                         SizedBox(height: 10),
@@ -367,48 +386,47 @@ class _HomeScreennState extends State<HomeScreenn> {
                                                         fontSize: 13),
                                                   ),
                                                 ),
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets.only(
-                                                      top: 0, left: 40),
-                                                  child: Text(
+                                                 SizedBox(width: 30,),
+                                                 Text(
                                                     'Phase',
                                                     style: TextStyle(
                                                         fontWeight:
                                                         FontWeight.w400,
                                                         fontSize: 13),
                                                   ),
-                                                ),
                                               ],
                                             )),
                                         Container(
                                             width: 180,
                                             child: Row(
                                               children: [
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets.only(
-                                                      top: 0),
-                                                  child: Text(
-                                                    value['milk_per_day'].toString(),
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                        FontWeight.bold,
-                                                        fontSize: 18),
+                                                Container(width:80,
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                        const EdgeInsets.only(
+                                                            top: 0),
+                                                        child: Text(
+                                                          value['milk_per_day'].toString(),
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                              FontWeight.bold,
+                                                              fontSize: 15),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets.only(
-                                                      top: 0, left: 100),
-                                                  child: Text(
+                                                SizedBox(width: 22,),
+                                                Text(
                                                     value['phase'].toString(),
                                                     style: TextStyle(
                                                         fontWeight:
                                                         FontWeight.bold,
-                                                        fontSize: 18),
+                                                        fontSize: 15),
                                                   ),
-                                                ),
                                               ],
                                             )),
                                         SizedBox(height: 10),
@@ -428,17 +446,13 @@ class _HomeScreennState extends State<HomeScreenn> {
                                                         fontSize: 13),
                                                   ),
                                                 ),
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets.only(
-                                                      top: 0, left: 90),
-                                                  child: Text(
-                                                    'Lactation',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                        FontWeight.w400,
-                                                        fontSize: 13),
-                                                  ),
+                                                SizedBox(width: 80,),
+                                                Text(
+                                                  'Lactation',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                      FontWeight.w400,
+                                                      fontSize: 13),
                                                 ),
                                               ],
                                             )),
@@ -446,30 +460,32 @@ class _HomeScreennState extends State<HomeScreenn> {
                                             width: 180,
                                             child: Row(
                                               children: [
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets.only(
-                                                      top: 0),
-                                                  child: Text(
-                                                    value['age'].toString(),
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                        FontWeight.bold,
-                                                        fontSize: 18),
+                                                Container(width:80,
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                        const EdgeInsets.only(
+                                                            top: 0),
+                                                        child: Text(
+                                                          value['age'].toString(),
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                              FontWeight.bold,
+                                                              fontSize: 15),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets.only(
-                                                      top: 0, left: 103),
-                                                  child: Text(
-                                                    value['lactation']
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                        FontWeight.bold,
-                                                        fontSize: 18),
-                                                  ),
+                                                SizedBox(width: 22,),
+                                                Text(
+                                                  value['lactation'].toString(),
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                      FontWeight.bold,
+                                                      fontSize: 15),
                                                 ),
                                               ],
                                             )),
@@ -486,6 +502,8 @@ class _HomeScreennState extends State<HomeScreenn> {
                                 ),
                               ),
                               Container(
+                                height: 45,
+                                width: 400,
                                 child: Row(
                                   children: [
                                     Row(
@@ -529,8 +547,6 @@ class _HomeScreennState extends State<HomeScreenn> {
                                     ),
                                   ],
                                 ),
-                                height: 45,
-                                width: 400,
                               ),
                             ],
                           ),
@@ -546,8 +562,25 @@ class _HomeScreennState extends State<HomeScreenn> {
       ),
     );
   }
+
+  void toggleFavorite(String itemId) {
+    setState(() {
+      if (favorites.contains(itemId)) {
+        favorites.remove(itemId);
+      } else {
+        favorites.add(itemId);
+      }
+      saveFavorites();
+    });
+  }
+
+  void saveFavorites() async {
+    // Save favorites to SharedPreferences
+    await prefs?.setStringList('favorites', favorites.toList());
+  }
+
   void searchbarUser()async{
-    var url="http://192.168.255.146:3000/api/getAllSearch";
+    var url="http://192.168.122.146:3000/api/getAllSearch";
     var data={
       "query":_searchbar.text,
     };

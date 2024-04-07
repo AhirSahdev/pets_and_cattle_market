@@ -1,27 +1,25 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:pets_and_cattle_market/homepage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'home.dart';
 import 'languagepage.dart';
 
 class IntroPage extends StatefulWidget {
   const IntroPage({super.key});
 
   @override
-  State<IntroPage> createState() => _IntroPageState();
+  State<IntroPage> createState() => IntroPageState();
 }
 
-class _IntroPageState extends State<IntroPage> {
+class IntroPageState extends State<IntroPage> {
+  static const String KEYLOGIN = "login";
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 5), () {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const LanguageSelectionPage(),
-          ));
-    });
+    whereToGo();
   }
 
   @override
@@ -40,12 +38,46 @@ class _IntroPageState extends State<IntroPage> {
           children: [
             Image.asset('assets/images/Pet Salling Logo.png', height: 200),
             const Text(
-              'Pets & Cattle Market',
+              'PET CART',
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             )
           ],
         ),
       ),
     ));
+  }
+
+  void whereToGo() async {
+
+    var sharedPref = await SharedPreferences.getInstance();
+    
+    var isLoggedIn = sharedPref.getBool(KEYLOGIN);
+
+    Timer(const Duration(seconds: 5), () {
+
+      if(isLoggedIn!=null){
+        if(isLoggedIn){
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomeScreen(),
+              ));
+        } else {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => LanguageSelectionPage(),
+              ));
+        }
+      } else {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LanguageSelectionPage(),
+            ));
+      }
+
+
+    });
   }
 }

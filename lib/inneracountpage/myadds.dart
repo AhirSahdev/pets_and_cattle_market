@@ -12,10 +12,10 @@ class MyAds extends StatelessWidget {
       ),
       body: Card(
         child: InkWell(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const UnderCard()));
-          },
+          // onTap: () {
+          //   Navigator.push(context,
+          //       MaterialPageRoute(builder: (context) => const UnderCard()));
+          // },
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(

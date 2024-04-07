@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:get/get_core/src/get_main.dart';
+// import 'package:get/get_instance/get_instance.dart';
 import 'package:pets_and_cattle_market/profilepage.dart';
 import 'dart:convert';
 import "package:http/http.dart" as http;
@@ -7,6 +9,8 @@ import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import 'package:pets_and_cattle_market/providers/mainProvider.dart';
+
+
 
 class PhoneAuthScreen extends StatefulWidget {
   @override
@@ -162,7 +166,7 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
   }
   Future get_userData() async {
     try{
-      var url="http://192.168.255.146:3000/api/finduserusingphonenumber";
+      var url="http://192.168.122.146:3000/api/finduserusingphonenumber";
       var data = {
         "phoneNumber":_phoneNumberController.text
       };
@@ -383,6 +387,3 @@ class _CodeVerificationScreenState extends State<CodeVerificationScreen> {
     );
   }
 }
-
-
-

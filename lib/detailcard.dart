@@ -40,9 +40,9 @@ class Detail_Card extends StatelessWidget {
               return Card(
 
                 child: InkWell(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const UnderCard()));
-                  },
+                  // onTap: (){
+                  //   Navigator.push(context, MaterialPageRoute(builder: (context) =>  UnderCard(value)));
+                  // },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(

@@ -5,8 +5,10 @@ import 'package:pets_and_cattle_market/home.dart';
 import 'dart:io';
 import 'dart:convert';
 import "package:http/http.dart" as http;
+import 'package:pets_and_cattle_market/splacescreen.dart';
 import 'package:provider/provider.dart';
 import 'package:pets_and_cattle_market/providers/mainProvider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class profilepage extends StatefulWidget {
@@ -95,7 +97,9 @@ class _profilepage extends State<profilepage> {
               ),
               const SizedBox(height: 24),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async{
+                  var sharedPref = await SharedPreferences.getInstance();
+                  sharedPref.setBool(IntroPageState.KEYLOGIN ,true);
                   registerUser();
                   final firstName = _firstNameController.text;
                   final lastName = _lastNameController.text;
@@ -120,8 +124,7 @@ class _profilepage extends State<profilepage> {
                       },
                     );
                   } else if (firstName.isNotEmpty && lastName.isNotEmpty) {
-                    // Both fields are filled, navigate to the next page
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => HomeScreen(),
@@ -160,7 +163,7 @@ class _profilepage extends State<profilepage> {
 
   void registerUser()async{
 
-    var url="http://192.168.255.146:3000/api/getuser";
+    var url="http://192.168.122.146:3000/api/getuser";
     var request = http.MultipartRequest('POST', Uri.parse(url));
     request.files.add(
       http.MultipartFile(

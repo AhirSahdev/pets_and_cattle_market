@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pets_and_cattle_market/home.dart';
 import 'package:pets_and_cattle_market/inneracountpage/innerprivecy.dart';
 import 'package:pets_and_cattle_market/profilepage.dart';
 import 'package:pets_and_cattle_market/splacescreen.dart';
@@ -11,6 +12,8 @@ import 'firebase_options.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:pets_and_cattle_market/providers/mainProvider.dart';
+
+import 'homepage.dart';
 class AppState {
 
 
@@ -63,7 +66,7 @@ class MyApp extends StatelessWidget {
 //theme: ThemeData(
         //  colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         // useMaterial3: true),
-        home:PhoneAuthScreen(),
+        home:IntroPage(),
       );
     // );
   }

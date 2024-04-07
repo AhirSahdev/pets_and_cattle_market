@@ -749,7 +749,7 @@ class _selling_Detail extends State<selling_Detail> {
                     onPressed: () {
                       print(_currentPosition!.longitude);
                       _currentPosition != null ?
-Text(
+                      Text(
                           'latitude: ${_currentPosition!.latitude}, longitude: ${_currentPosition!.longitude}')
                           : CircularProgressIndicator();
                     },
@@ -876,7 +876,7 @@ Text(
   }
   void sellDetails()async{
     print("Hello");
-    var url="http://192.168.134.146:3000/api/getAnimal";
+    var url="http://192.168.122.146:3000/api/getAnimal";
     var data = {
       "main_categorie": _selectedCategory,
       "sub_categorie": _selectedSubCategory,
